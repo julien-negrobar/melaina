@@ -1,0 +1,194 @@
+/* =========================================
+   BEE WEB // CORE DESIGN SYSTEM v9.0
+   ========================================= */
+:root {
+    /* PALETTE CYBERPUNK */
+    --bg-deep: #020617;
+    --panel-glass: rgba(30, 41, 59, 0.6);
+    --border-glass: rgba(148, 163, 184, 0.1);
+    
+    --text-main: #f8fafc;
+    --text-dim: #94a3b8;
+    
+    --neon-blue: #0ea5e9;
+    --neon-green: #10b981;
+    --neon-red: #ef4444;
+    --neon-gold: #f59e0b;
+    --neon-purple: #8b5cf6;
+
+    --font-tech: 'Courier New', monospace;
+    --font-ui: 'Segoe UI', system-ui, -apple-system, sans-serif;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    background-color: var(--bg-deep);
+    background-image: 
+        linear-gradient(rgba(14, 165, 233, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(14, 165, 233, 0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    color: var(--text-main);
+    font-family: var(--font-ui);
+    /* Sur PC, ça agit comme une App figée */
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* --- LAYOUT STRUCTURE --- */
+.app-wrapper { display: flex; height: 100vh; }
+
+/* SIDEBAR */
+.sidebar {
+    width: 260px;
+    background: rgba(2, 6, 23, 0.95);
+    border-right: 1px solid var(--border-glass);
+    padding: 30px;
+    display: flex; flex-direction: column;
+    backdrop-filter: blur(20px);
+    z-index: 100;
+}
+
+.sidebar-brand {
+    font-size: 1.4rem; font-weight: 900; letter-spacing: 3px;
+    color: var(--neon-blue); margin-bottom: 50px;
+    text-shadow: 0 0 15px rgba(14, 165, 233, 0.4);
+    display: flex; align-items: center; gap: 12px;
+}
+
+.nav-item {
+    color: var(--text-dim); text-decoration: none; padding: 16px;
+    margin-bottom: 5px; border-radius: 6px; font-weight: 600;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex; align-items: center; gap: 15px;
+    border-left: 2px solid transparent;
+}
+
+.nav-item:hover { background: rgba(255,255,255,0.03); color: #fff; padding-left: 20px; }
+.nav-item.active { 
+    background: linear-gradient(90deg, rgba(14, 165, 233, 0.1), transparent);
+    color: var(--neon-blue); border-left-color: var(--neon-blue);
+}
+
+.sys-footer {
+    margin-top: auto; padding-top: 20px; 
+    border-top: 1px solid rgba(255,255,255,0.1);
+    font-size: 0.7rem; color: #475569; font-family: var(--font-tech);
+}
+
+/* MAIN CONTENT */
+.main-content {
+    flex: 1; padding: 30px; overflow-y: auto;
+    display: flex; flex-direction: column;
+    position: relative;
+}
+
+/* HEADER */
+.page-header {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 30px;
+}
+.page-title h2 { font-size: 2rem; font-weight: 200; letter-spacing: 1px; }
+.page-title b { font-weight: 800; color: var(--neon-blue); }
+.page-subtitle { font-family: var(--font-tech); color: var(--text-dim); font-size: 0.85rem; margin-top: 5px; }
+
+/* --- COMPONENTS --- */
+.glass {
+    background: var(--panel-glass);
+    border: 1px solid var(--border-glass);
+    border-radius: 12px; padding: 25px;
+    backdrop-filter: blur(12px);
+    box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+    position: relative; overflow: hidden;
+}
+
+.badge {
+    padding: 6px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 800;
+}
+.badge-ok { background: rgba(16, 185, 129, 0.15); color: var(--neon-green); border: 1px solid rgba(16, 185, 129, 0.3); }
+.badge-warn { background: rgba(245, 158, 11, 0.15); color: var(--neon-gold); border: 1px solid rgba(245, 158, 11, 0.3); }
+.badge-danger { background: rgba(239, 68, 68, 0.15); color: var(--neon-red); border: 1px solid rgba(239, 68, 68, 0.3); }
+
+input[type="text"], input[type="number"], select {
+    background: rgba(2, 6, 23, 0.6); border: 1px solid var(--border-glass);
+    color: var(--text-main); padding: 12px 15px; border-radius: 6px;
+    width: 100%; outline: none; transition: 0.3s;
+}
+
+.btn-cyber {
+    background: rgba(14, 165, 233, 0.1); color: var(--neon-blue);
+    border: 1px solid var(--neon-blue); padding: 10px 20px;
+    border-radius: 6px; cursor: pointer; font-weight: 700;
+    transition: all 0.3s; text-transform: uppercase;
+}
+.btn-cyber:hover { background: var(--neon-blue); color: #000; box-shadow: 0 0 20px var(--neon-blue); }
+
+table { width: 100%; border-collapse: collapse; }
+th { text-align: left; color: var(--text-dim); padding: 15px; font-size: 0.8rem; border-bottom: 1px solid var(--border-glass); }
+td { padding: 15px; border-bottom: 1px solid rgba(255,255,255,0.03); font-size: 0.9rem; }
+
+.blink { animation: blinker 1.5s linear infinite; }
+@keyframes blinker { 50% { opacity: 0; } }
+
+/* =========================================
+   LE FIX RESPONSIVE & SCROLL (POUR TOUTES LES PAGES)
+   ========================================= */
+@media screen and (max-width: 1024px) {
+    /* 1. ON CASSE LE VERROUILLAGE DE HAUTEUR SUR MOBILE */
+    body { 
+        height: auto !important; 
+        overflow: visible !important; 
+        overflow-y: auto !important;
+    }
+    .app-wrapper { 
+        height: auto !important; 
+        flex-direction: column !important; 
+        display: block !important;
+    }
+    
+    /* 2. MENU EN HAUT, QUI RESTE COLLÉ */
+    .sidebar {
+        width: 100%; height: auto; flex-direction: row;
+        align-items: center; padding: 15px; justify-content: space-between;
+        border-right: none; border-bottom: 1px solid var(--border-glass);
+        position: sticky; top: 0; z-index: 1000;
+    }
+    .sidebar-brand { margin-bottom: 0; font-size: 1.2rem; }
+    .sys-footer { display: none; }
+    .sidebar-menu { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 5px; }
+    .nav-item { padding: 10px; margin: 0; flex-shrink: 0; }
+    .nav-item span { display: none; } /* Cache le texte sur mobile */
+    .nav-item i { font-size: 1.4rem; margin: 0; }
+
+    /* 3. LE CONTENU PEUT ENFIN PRENDRE TOUTE LA PLACE ET DESCENDRE */
+    .main-content { 
+        height: auto !important; 
+        overflow-y: visible !important; 
+        padding-bottom: 80px !important; /* Marge en bas pour respirer */
+    }
+    
+    .dash-grid { grid-template-columns: 1fr; height: auto; }
+    .cyber-card { margin-bottom: 20px; }
+    .chart-wrapper { height: 300px; }
+    .glass { height: auto !important; }
+}
+
+@media screen and (max-width: 768px) {
+    .main-content { padding: 15px; }
+    .page-header { flex-direction: column; align-items: flex-start; gap: 15px; }
+    .page-header > div { width: 100%; }
+    
+    /* FORCER TOUTES LES GRILLES EN COLONNE */
+    .kpi-container, .stats-grid, .charts-grid, .settings-grid { 
+        grid-template-columns: 1fr !important; 
+    }
+    .glass[style*="grid-template-columns"] { grid-template-columns: 1fr !important; }
+    
+    /* FIX BOUTON DECONNEXION DANS PARAMETRES */
+    .profile-card { flex-direction: column; text-align: center; }
+    .profile-card > div { width: 100%; }
+    .profile-card .btn-cyber { width: 100%; margin-top: 15px; }
+    
+    /* TABLEAU HISTORIQUE SCROLLABLE HORIZONTALEMENT */
+    .table-responsive { width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+}
